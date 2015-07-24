@@ -18,6 +18,9 @@ class UsersController < ApplicationController
   end
 
   #add Edit, Update, Index and Destroy actions
+  def edit
+    @user = User.find(params[:id])
+  end
 
 
   private

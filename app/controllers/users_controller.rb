@@ -18,8 +18,19 @@ class UsersController < ApplicationController
   end
 
   #add Edit, Update, Index and Destroy actions
+  #to show the edit page
   def edit
     @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
   end
 
 

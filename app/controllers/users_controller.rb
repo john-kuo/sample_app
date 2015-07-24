@@ -17,6 +17,8 @@ class UsersController < ApplicationController
     end
   end
 
+  #add Edit, Update, Index and Destroy actions
+
 
   private
   def user_params

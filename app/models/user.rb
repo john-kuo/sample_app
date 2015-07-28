@@ -27,16 +27,11 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
 
-  def digest(string)
-    "abc"
-  end
 
-
-  def self.digest(string)
-    "User.digest"
-    # cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-    #     BCrypt::Engine.cost
-    # BCrypt::Password.create(string, cost: cost)
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+        BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
   end
 
   def User.new_token

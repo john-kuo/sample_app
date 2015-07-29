@@ -38,7 +38,9 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && !user.activated? && user.authenticated?(:remember, cookies[:remember_token])
+        user.update_attribute(:activated, true)
+        user.update_attribute(:activated_at, Time.zone.now)
         log_in user
         @current_user = user
       end

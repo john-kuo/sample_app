@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
+  has_many :active_relationships,
+           class_name: "Relationship",
+           foreign_key: "follower_id",
+           dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save :downcase_email
@@ -87,7 +91,5 @@ class User < ActiveRecord::Base
     self.activation_token = User.new_token
     self.activation_digest = User.digest(self.activation_token)
   end
-
-
 
 end
